@@ -93,4 +93,8 @@ public class ServiceOrderClient {
             }
         });
     }
+
+    public void setDone(Order order) throws IllegalArgumentException {
+        // Faire le passage en DB + dégager la commande de la liste.
+    }
 }
