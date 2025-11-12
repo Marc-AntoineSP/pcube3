@@ -1,0 +1,29 @@
+package fr.groupe.pcube;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class ServiceLogs {
+    private final Map<Integer, List<Log>> logs;
+
+    public ServiceLogs() {
+        this.logs = new HashMap<>();
+    }
+
+    public void addLog(Log log) {
+        if (!this.logs.containsKey(log.getType())) {
+            this.logs.put(log.getType(), new ArrayList<>());
+        }
+        this.logs.get(log.getType()).add(log);
+    }
+
+    public void deleteLog(Log log) {
+        this.logs.get(log.getType()).remove(log);
+    }
+
+    public void clear() {
+        this.logs.clear();
+    }
+}
