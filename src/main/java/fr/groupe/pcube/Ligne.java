@@ -2,7 +2,7 @@ package fr.groupe.pcube;
 
 public class Ligne {
     private final Vin vin;
-    private final int quantity;
+    private int quantity;
     private final double price;
 
     protected Ligne(Vin vin, int quantity) {
@@ -17,6 +17,10 @@ public class Ligne {
 
     public int getQuantity() {
         return quantity;
+    }
+
+    public void increaseQuantity() {
+        this.quantity += 1;
     }
 
     public double getPrice() {
