@@ -69,8 +69,6 @@ public class Log {
                 return false;
         } else if (!message.equals(other.message))
             return false;
-        if (type != other.type)
-            return false;
-        return true;
+        return type == other.type;
     }
 }
