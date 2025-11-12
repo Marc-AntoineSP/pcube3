@@ -20,7 +20,14 @@ public class Ligne {
     }
 
     public double getPrice() {
-        return price;
+        return price * quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "Vin : " + this.vin.getType() + " " + this.vin.getName()
+                + ". Quantité : " + this.quantity + ". Total = "
+                + this.getPrice();
     }
 
 }
