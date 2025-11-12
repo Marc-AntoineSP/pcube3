@@ -70,4 +70,27 @@ public class ServiceOrderClient {
             }
         }
     }
+
+    public void deleteLine(Client client, Ligne ligne)
+            throws IllegalArgumentException {
+        if (!this.clientExist(client)) {
+            throw new IllegalArgumentException(
+                    "Aucune commandes n'existent avec le client "
+                            + client.getName());
+        }
+        this.commandesEnCours.get(client).removeLine(ligne);
+    }
+
+    public void deleteLine(Order order, Ligne ligne)
+            throws IllegalArgumentException {
+        if (!this.orderExist(order)) {
+            throw new IllegalArgumentException(
+                    "Aucune commande n'existe avec l'order " + order.getId());
+        }
+        this.commandesEnCours.values().forEach(v -> {
+            if (v.equals(order)) {
+                v.removeLine(ligne);
+            }
+        });
+    }
 }

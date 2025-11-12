@@ -23,6 +23,13 @@ public class Order {
         this.lignes.add(l);
     }
 
+    public void removeLine(Ligne l) throws IllegalArgumentException {
+        if (!this.lignes.contains(l)) {
+            throw new IllegalArgumentException("La ligne n'existe pas.");
+        }
+        this.lignes.remove(l);
+    }
+
     public List<Ligne> getLignes() {
         return this.lignes;
     }
