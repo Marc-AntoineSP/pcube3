@@ -10,9 +10,15 @@ public class ServiceCommandeFournisseur {
         this.commandesEncours = new HashMap<>();
     }
 
-    public void addCommandes(Commande commande) {
+    public void addCommande(Commande commande) {
         if (!this.commandesEncours.containsKey(commande.getFournisseur())) {
             this.commandesEncours.put(commande.getFournisseur(), commande);
+        }
+    }
+
+    public void deleteCommande(Commande commande){
+        if(this.commandesEncours.containsKey(commande.getFournisseur())) {
+            this.commandesEncours.remove(commande.getFournisseur(), commande);
         }
     }
 }
