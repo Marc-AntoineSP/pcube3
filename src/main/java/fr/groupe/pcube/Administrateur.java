@@ -13,6 +13,7 @@ public class Administrateur extends Personne{
     public Administrateur(int id, String name, String email, Address address, String password) {
         super(id, name, email, address);
         this.password = password;
+        this.role = Role.ADMINISTRATEUR;
     }
 
     public String getPassword(){

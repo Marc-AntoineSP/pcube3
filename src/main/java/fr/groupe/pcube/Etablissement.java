@@ -16,5 +16,4 @@ public class Etablissement {
         this.serviceOrderClient = new ServiceOrderClient();
     }
 
-    
 }

@@ -3,12 +3,10 @@ package fr.groupe.pcube;
 public class Ligne {
     private final Vin vin;
     private int quantity;
-    private final double price;
 
     protected Ligne(Vin vin, int quantity) {
         this.vin = vin;
         this.quantity = quantity;
-        this.price = this.quantity * this.vin.getPrice();
     }
 
     public Vin getVin() {
@@ -24,7 +22,7 @@ public class Ligne {
     }
 
     public double getPrice() {
-        return price * quantity;
+        return this.vin.getPrice() * quantity;
     }
 
     @Override
