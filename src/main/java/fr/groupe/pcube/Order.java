@@ -9,16 +9,20 @@ import java.util.UUID;
 public class Order {
     private final UUID id;
     private final Date date;
-    private final Client client;
+    private Client client;
     private final List<Ligne> lignes;
 
-    public Order(Client client) {
+    public Order() {
         this.id = UUID.randomUUID();
         this.date = Date.from(Instant.now());
-        this.client = client;
+        this.client = null;
         this.lignes = new ArrayList<>();
     }
 
+    public void setClient(Client client){
+        this.client = client;
+    }
+    
     public void addLine(Ligne l) {
         this.lignes.add(l);
     }

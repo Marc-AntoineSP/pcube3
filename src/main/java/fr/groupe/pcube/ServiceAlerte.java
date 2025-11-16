@@ -2,16 +2,14 @@ package fr.groupe.pcube;
 
 public class ServiceAlerte {
     private Cave cave;
-    private int seuil;
 
-    public ServiceAlerte(Cave cave, int seuil) {
+    public ServiceAlerte(Cave cave) {
         this.cave = cave;
-        this.seuil = seuil;
     }
 
     public void checkStock(Vin vin){
         try{
-            if(this.cave.getStock(vin) < seuil){
+            if(this.cave.getStock(vin) < vin.getSeuil()){
                 System.out.println("VIN : "+vin.getName()+" BAS !");
             }else{
                 System.out.println("ok");

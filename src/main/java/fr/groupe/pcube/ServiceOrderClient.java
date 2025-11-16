@@ -1,100 +1,57 @@
 package fr.groupe.pcube;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-
 public class ServiceOrderClient {
-    private final Map<Client, Order> commandesEnCours;
+    private Order currentOrder;
 
     public ServiceOrderClient() {
-        this.commandesEnCours = new HashMap<>();
+        //Oui.
     }
 
-    private boolean clientExist(Client client) {
-        return this.commandesEnCours.containsKey(client);
+    public boolean hasOrder(){
+        return currentOrder != null;
     }
 
-    private boolean orderExist(Order order) {
-        return this.commandesEnCours.values().contains(order);
-    }
-
-    public void addOrderToProcess(Client client)
-            throws IllegalArgumentException {
-        if (!this.clientExist(client)) {
-            throw new IllegalArgumentException("Une commande existe déjà !");
+    public Order getOrder(){
+        if(!this.hasOrder()){
+            throw new IllegalStateException("No order");
         }
-        this.commandesEnCours.put(client, new Order(client));
+        return this.currentOrder;
     }
 
-    public void deleteOrder(Client client) throws IllegalArgumentException {
-        if (!this.clientExist(client)) {
-            throw new IllegalArgumentException(
-                    "Aucune commandes n'existent avec le client "
-                            + client.getName());
+    public void addClient(Client client){
+        this.currentOrder.setClient(client);
+    }
+
+    public void addLine(Ligne ligne){
+        if(!hasOrder()){
+            throw new IllegalStateException("No order");
         }
-        this.commandesEnCours.remove(client);
+        this.currentOrder.addLine(ligne);
     }
 
-    public void deleteOrder(Order order) throws IllegalArgumentException {
-        if (!this.commandesEnCours.entrySet()
-                .removeIf(c -> Objects.equals(c.getValue(), order))) {
-            throw new IllegalArgumentException(
-                    "Aucune commande n'existe avec l'order " + order.getId());
+    public void removeLine(Ligne ligne){
+        if(!hasOrder()){
+            throw new IllegalStateException("No order");
         }
+        this.currentOrder.removeLine(ligne);
     }
 
-    public void clean() {
-        this.commandesEnCours.clear();
-    }
-
-    public void addLine(Client client, Ligne ligne)
-            throws IllegalArgumentException {
-        if (!this.clientExist(client)) {
-            throw new IllegalArgumentException(
-                    "Aucune commandes n'existent avec le client "
-                            + client.getName());
+    public void cancelOrder(){
+        if(!hasOrder()){
+            throw new IllegalStateException("No order");
         }
-        this.commandesEnCours.get(client).addLine(ligne);
+        this.currentOrder = null;
     }
 
-    public void addLine(Order order, Ligne ligne) {
-        if (!this.orderExist(order)) {
-            throw new IllegalArgumentException(
-                    "Aucune commande n'existe avec l'order " + order.getId());
-        }
-        for (Map.Entry<Client, Order> m : this.commandesEnCours.entrySet()) {
-            Order v = m.getValue();
-            if (v.equals(order)) {
-                v.addLine(ligne);
-            }
-        }
+    public void deleteApresVente(){
+        this.currentOrder = null;
     }
 
-    public void deleteLine(Client client, Ligne ligne)
-            throws IllegalArgumentException {
-        if (!this.clientExist(client)) {
-            throw new IllegalArgumentException(
-                    "Aucune commandes n'existent avec le client "
-                            + client.getName());
-        }
-        this.commandesEnCours.get(client).removeLine(ligne);
+    public void createOrder(){
+        this.currentOrder = new Order();
     }
 
-    public void deleteLine(Order order, Ligne ligne)
-            throws IllegalArgumentException {
-        if (!this.orderExist(order)) {
-            throw new IllegalArgumentException(
-                    "Aucune commande n'existe avec l'order " + order.getId());
-        }
-        this.commandesEnCours.values().forEach(v -> {
-            if (v.equals(order)) {
-                v.removeLine(ligne);
-            }
-        });
-    }
-
-    public void setDone(Order order) throws IllegalArgumentException {
-        // Faire le passage en DB + dégager la commande de la liste.
-    }
 }
+
+// VENTE : CREATION D'UNE COMMANDE CLIENT -> AJOUT DES LIGNES
+// -> Deletion possible de lignes -> Clear apres le paiement (ou annulation).

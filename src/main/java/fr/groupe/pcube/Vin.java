@@ -5,14 +5,22 @@ public class Vin {
     private final String name;
     private final String type;
     private int price;
+    private int seuil;
 
-    public Vin(int id, String name, String type, int price) {
+    public Vin(int id, String name, String type, int price, int seuil) {
         this.id = id;
         this.name = name;
         this.type = type;
         this.price = price;
+        this.seuil = seuil;
     }
 
+    public int getSeuil(){
+        return this.seuil;
+    }
+    public void setSeuil(int seuil){
+        this.seuil = seuil;
+    }
     public int getId() {
         return id;
     }
