@@ -1,9 +1,14 @@
 package fr.groupe.pcube;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.MappedSuperclass;
+
+@MappedSuperclass
+@Entity
 public class Client extends Personne {
 
-    public Client(int id, String name, String email, Address address) {
-        super(id, name, email, address);
+    public Client(String name, String email, Address address) {
+        super(name, email, address);
     }
 
     @Override
