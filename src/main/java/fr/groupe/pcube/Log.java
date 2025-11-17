@@ -1,31 +1,41 @@
 package fr.groupe.pcube;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name = "log")
 public class Log {
     @Id
     @Column(name = "id", columnDefinition = "BINARY(16)")
-    private final UUID id;
+    private UUID id;
     @Column(nullable = false)
-    private final Date date;
+    @Temporal(TemporalType.TIMESTAMP)
+    private LocalDate date;
     @Column(nullable = false)
-    private final String message;
+    private String message;
     @Column(nullable = false)
-    private final TypeLog type; // 0: err, 1: transaction client,
+    @Enumerated(EnumType.STRING)
+    private TypeLog type; // 0: err, 1: transaction client,
     // 2: transaction fournisseur
 
+    protected Log(){
+        //Si si, hibernaaaaaaaaato 🤌 xD
+    }
     public Log(String message, TypeLog type) {
         this.id = UUID.randomUUID();
-        this.date = Date.from(Instant.now());
+        this.date = LocalDate.now();
         this.message = message;
         this.type = type;
     }
@@ -34,7 +44,7 @@ public class Log {
         return id;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
