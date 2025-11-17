@@ -21,18 +21,18 @@ public class Fournisseur extends Personne {
         super();
     }
 
-    public Fournisseur(String name, String email) {
-        super(name, email);
+    public Fournisseur(String firstName, String lastName, String email) {
+        super(firstName, lastName, email);
         this.vins = new HashMap<>();
     }
 
-    public Fournisseur(String name, String email, Address address) {
-        super(name, email, address);
+    public Fournisseur(String firstName, String lastName, String email, Address address) {
+        super(firstName, lastName, email, address);
         this.vins = new HashMap<>();
     }
 
-    public Fournisseur(String name, String email, Vin vin) {
-        super(name, email);
+    public Fournisseur(String firstName, String lastName, String email, Vin vin) {
+        super(firstName, lastName, email);
         this.vins = new HashMap<>();
         this.vins.put(vin.getName(), vin);
     }

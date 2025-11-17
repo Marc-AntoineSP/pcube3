@@ -4,14 +4,25 @@ import java.time.Instant;
 import java.util.Date;
 import java.util.UUID;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "log")
 public class Log {
+    @Id
     private final UUID id;
+    @Column(nullable = false)
     private final Date date;
+    @Column(nullable = false)
     private final String message;
-    private final int type; // 0: err, 1: transaction client,
+    @Column(nullable = false)
+    private final TypeLog type; // 0: err, 1: transaction client,
     // 2: transaction fournisseur
 
-    public Log(String message, int type) {
+    public Log(String message, TypeLog type) {
         this.id = UUID.randomUUID();
         this.date = Date.from(Instant.now());
         this.message = message;
@@ -30,7 +41,7 @@ public class Log {
         return message;
     }
 
-    public int getType() {
+    public TypeLog getType() {
         return type;
     }
 
@@ -41,7 +52,7 @@ public class Log {
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((date == null) ? 0 : date.hashCode());
         result = prime * result + ((message == null) ? 0 : message.hashCode());
-        result = prime * result + type;
+        result = prime * result + type.hashCode();
         return result;
     }
 

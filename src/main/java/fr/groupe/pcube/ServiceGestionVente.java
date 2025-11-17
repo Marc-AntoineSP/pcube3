@@ -23,7 +23,7 @@ public class ServiceGestionVente {
             }
             for(Ligne l : order.getLignes()){
                 this.cave.decreaseStock(l.getVin(), l.getQuantity());
-                this.serviceLogs.addLog(new Log("Vente : "+l.getVin().getName()+", quantité : "+l.getQuantity(), 1));
+                this.serviceLogs.addLog(new Log("Vente : "+l.getVin().getName()+", quantité : "+l.getQuantity(), TypeLog.VENTE));
                 this.serviceAlerte.checkStock(l.getVin());
                 this.serviceGestionOrder.clearOrderApresVente();
                 //TODO: PDF ICI.

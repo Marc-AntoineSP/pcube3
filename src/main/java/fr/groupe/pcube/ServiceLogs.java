@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ServiceLogs {
-    private final Map<Integer, List<Log>> logs;
+    private final Map<TypeLog, List<Log>> logs;
 
     public ServiceLogs() {
         this.logs = new HashMap<>();

@@ -9,14 +9,14 @@ public class Administrateur extends Personne{
     private String password;
     private Role role;
 
-    public Administrateur(String name, String email, String password) {
-        super(name, email);
+    public Administrateur(String firstName, String lastName, String email, String password) {
+        super(firstName, lastName, email);
         this.password = password;
         this.role = Role.ADMINISTRATEUR;
     }
 
-    public Administrateur(String name, String email, Address address, String password) {
-        super(name, email, address);
+    public Administrateur(String firstName, String lastName, String email, Address address, String password) {
+        super(firstName, lastName, email, address);
         this.password = password;
         this.role = Role.ADMINISTRATEUR;
     }

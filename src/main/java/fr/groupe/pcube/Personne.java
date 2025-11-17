@@ -11,7 +11,9 @@ public abstract class Personne {
     @Id
     private UUID id;
     @Column(nullable = false)
-    private String name;
+    private String firstName;
+    @Column(nullable = false)
+    private String lastName;
     @Column(nullable = false)
     private String email;
     @Column(nullable = false)
@@ -20,14 +22,15 @@ public abstract class Personne {
     protected Personne(){
         //Hibernate.
     }
-    protected Personne(String name, String email) {
+    protected Personne(String firstName, String lastName, String email) {
         this.id = UUID.randomUUID();
-        this.name = name;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.email = email;
     }
 
-    protected Personne(String name, String email, Address address) {
-        this(name, email);
+    protected Personne(String firstName, String lastName, String email, Address address) {
+        this(firstName, lastName, email);
         this.address = address;
     }
 
@@ -60,14 +63,18 @@ public abstract class Personne {
         return true;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
-
+    public String getLastName() {
+        return lastName;
+    }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
     public String getEmail() {
         return email;
     }
