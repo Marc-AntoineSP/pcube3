@@ -1,15 +1,21 @@
 package fr.groupe.pcube;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "Fournisseur")
+@Table(name = "fournisseur")
 public class Fournisseur extends Personne {
     private Map<String, Vin> vins;
+    @OneToMany(mappedBy = "fournisseur", cascade = CascadeType.ALL)
+    private List<Vin> vinsList = new ArrayList<>();
 
     public Fournisseur(){
         super();
@@ -20,13 +26,13 @@ public class Fournisseur extends Personne {
         this.vins = new HashMap<>();
     }
 
-    public Fournisseur(int id, String name, String email, Address address) {
-        super(id, name, email, address);
+    public Fournisseur(String name, String email, Address address) {
+        super(name, email, address);
         this.vins = new HashMap<>();
     }
 
-    public Fournisseur(int id, String name, String email, Vin vin) {
-        super(id, name, email);
+    public Fournisseur(String name, String email, Vin vin) {
+        super(name, email);
         this.vins = new HashMap<>();
         this.vins.put(vin.getName(), vin);
     }
