@@ -20,6 +20,11 @@
 
         <!-- Entités -->
         <mapping class="fr.groupe.pcube.Vin"/>
+        <mapping class="fr.groupe.pcube.Order"/>
+        <mapping class="fr.groupe.pcube.Commande"/>
+        <mapping class="fr.groupe.pcube.Log"/>
+        <mapping class="fr.groupe.pcube.Ligne"/>
+        <mapping class="fr.groupe.pcube.Administrateur"/>
 
 
     </session-factory>
