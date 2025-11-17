@@ -1,22 +1,41 @@
 package fr.groupe.pcube;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+
+@Entity
+@Table(name = "order")
 public class Order {
-    private final UUID id;
-    private final Date date;
+    @Id
+    @Column(name = "id", columnDefinition = "BINARY(16)")
+    private UUID id;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private LocalDate date;
+    @ManyToOne
+    @JoinColumn(name = "client_id")
     private Client client;
-    private final List<Ligne> lignes;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Ligne> lignes = new ArrayList<>();
 
     public Order() {
         this.id = UUID.randomUUID();
-        this.date = Date.from(Instant.now());
-        this.client = null;
-        this.lignes = new ArrayList<>();
+        this.date = LocalDate.now();
     }
 
     public void setClient(Client client){
@@ -46,7 +65,7 @@ public class Order {
         return id;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
@@ -57,7 +76,6 @@ public class Order {
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((date == null) ? 0 : date.hashCode());
         result = prime * result + ((client == null) ? 0 : client.hashCode());
-        result = prime * result + ((lignes == null) ? 0 : lignes.hashCode());
         return result;
     }
 
@@ -84,11 +102,6 @@ public class Order {
             if (other.client != null)
                 return false;
         } else if (!client.equals(other.client))
-            return false;
-        if (lignes == null) {
-            if (other.lignes != null)
-                return false;
-        } else if (!lignes.equals(other.lignes))
             return false;
         return true;
     }

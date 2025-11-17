@@ -1,21 +1,45 @@
 package fr.groupe.pcube;
 
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-public class Commande {
-    private final UUID id;
-    private final Date date;
-    private final Fournisseur fournisseur;
-    private final List<Ligne> lignes;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 
+@Entity
+@Table(name = "commande")
+public class Commande {
+    @Id
+    @Column(name = "id", columnDefinition = "BINARY(16)")
+    private UUID id;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private LocalDate date;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "fournisseur_id", nullable = false)
+    private Fournisseur fournisseur;
+    @OneToMany(mappedBy = "commande", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Ligne> lignes = new ArrayList<>();
+
+    public Commande(){
+        //Hibernato
+    }
     public Commande(Fournisseur fournisseur) {
         this.fournisseur = fournisseur;
         this.id = UUID.randomUUID();
-        this.date = Date.from(Instant.now());
+        this.date = LocalDate.now();
         this.lignes = new ArrayList<>();
     }
 
@@ -23,7 +47,7 @@ public class Commande {
         return id;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
@@ -49,12 +73,9 @@ public class Commande {
         int result = 1;
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((date == null) ? 0 : date.hashCode());
-        result = prime * result
-                + ((fournisseur == null) ? 0 : fournisseur.hashCode());
-        result = prime * result + ((lignes == null) ? 0 : lignes.hashCode());
+        result = prime * result + ((fournisseur == null) ? 0 : fournisseur.hashCode());
         return result;
     }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -79,12 +100,9 @@ public class Commande {
                 return false;
         } else if (!fournisseur.equals(other.fournisseur))
             return false;
-        if (lignes == null) {
-            if (other.lignes != null)
-                return false;
-        } else if (!lignes.equals(other.lignes))
-            return false;
         return true;
     }
+
+    
 
 }

@@ -13,6 +13,7 @@ import jakarta.persistence.Table;
 @Table(name = "log")
 public class Log {
     @Id
+    @Column(name = "id", columnDefinition = "BINARY(16)")
     private final UUID id;
     @Column(nullable = false)
     private final Date date;

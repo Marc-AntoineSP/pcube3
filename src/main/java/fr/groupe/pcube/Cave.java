@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Cave {
+    //On garde la map, on fera plus tard le reste en mode full BDD.
     private Map<Vin, Integer> vins;
 
     public Cave(){
