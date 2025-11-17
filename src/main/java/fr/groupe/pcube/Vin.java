@@ -1,19 +1,29 @@
 package fr.groupe.pcube;
 
+import java.util.UUID;
+
 public class Vin {
-    private final int id;
-    private final String name;
-    private final String type;
+    private UUID id;
+    private String name;
+    private String type;
     private int price;
     private int seuil;
 
-    public Vin(int id, String name, String type, int price, int seuil) {
-        this.id = id;
+    public Vin(String name, String type, int price){
+        this.id = UUID.randomUUID();
         this.name = name;
         this.type = type;
         this.price = price;
+    }
+
+    public Vin(String name, String type, int price, int seuil) {
+        this(name, type, price);
         this.seuil = seuil;
     }
+
+    public Vin(){
+        //Vide pour Hibernate.
+    };
 
     public int getSeuil(){
         return this.seuil;
@@ -21,7 +31,7 @@ public class Vin {
     public void setSeuil(int seuil){
         this.seuil = seuil;
     }
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
@@ -45,10 +55,7 @@ public class Vin {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + id;
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((type == null) ? 0 : type.hashCode());
-        result = prime * result + price;
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
         return result;
     }
 
@@ -61,19 +68,10 @@ public class Vin {
         if (getClass() != obj.getClass())
             return false;
         Vin other = (Vin) obj;
-        if (id != other.id)
-            return false;
-        if (name == null) {
-            if (other.name != null)
+        if (id == null) {
+            if (other.id != null)
                 return false;
-        } else if (!name.equals(other.name))
-            return false;
-        if (type == null) {
-            if (other.type != null)
-                return false;
-        } else if (!type.equals(other.type))
-            return false;
-        if (price != other.price)
+        } else if (!id.equals(other.id))
             return false;
         return true;
     }
