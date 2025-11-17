@@ -1,5 +1,7 @@
 package fr.groupe.pcube;
 
+import jakarta.persistence.Embeddable;
+@Embeddable
 public class Address {
     private int codePostal;
     private String rue;

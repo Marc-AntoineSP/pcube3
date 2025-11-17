@@ -1,20 +1,19 @@
 package fr.groupe.pcube;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "fournisseur")
 public class Fournisseur extends Personne {
-    private Map<String, Vin> vins;
-    @OneToMany(mappedBy = "fournisseur", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "fournisseur_id")
     private List<Vin> vinsList = new ArrayList<>();
 
     public Fournisseur(){
@@ -23,58 +22,32 @@ public class Fournisseur extends Personne {
 
     public Fournisseur(String firstName, String lastName, String email) {
         super(firstName, lastName, email);
-        this.vins = new HashMap<>();
+        this.vinsList = new ArrayList<>();
     }
 
     public Fournisseur(String firstName, String lastName, String email, Address address) {
         super(firstName, lastName, email, address);
-        this.vins = new HashMap<>();
+        this.vinsList = new ArrayList<>();
     }
 
-    public Fournisseur(String firstName, String lastName, String email, Vin vin) {
-        super(firstName, lastName, email);
-        this.vins = new HashMap<>();
-        this.vins.put(vin.getName(), vin);
+    public List<Vin> getList(){
+        return vinsList;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + ((vins == null) ? 0 : vins.hashCode());
-        return result;
+    public Vin getVinByName(String name) throws IllegalArgumentException {
+        return vinsList.stream()
+            .filter(v -> v.getName().equals(name))
+            .findFirst()
+            .orElseThrow(() -> new IllegalArgumentException("Pas de vin avec le nom "+name));
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (!super.equals(obj))
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Fournisseur other = (Fournisseur) obj;
-        if (vins == null) {
-            if (other.vins != null)
-                return false;
-        } else if (!vins.equals(other.vins))
-            return false;
-        return true;
-    }
-
-    public Vin getVin(String vin) throws IllegalArgumentException {
-        if (!this.vins.containsKey(vin)) {
-            throw new IllegalArgumentException(
-                    "Aucun vin ne correspond au vin demandé");
-        }
-        return this.vins.get(vin);
-    }
-
-    public boolean hasVin(String vin) {
-        return this.vins.containsKey(vin);
+    public boolean hasVin(Vin vin) {
+        return this.vinsList.contains(vin);
     }
 
     public void addVin(Vin vin) {
-        this.vins.put(vin.getName(), vin);
+        if(!this.hasVin(vin)){
+            vinsList.add(vin);
+        }
     }
 }
