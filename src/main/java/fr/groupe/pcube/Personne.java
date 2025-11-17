@@ -2,10 +2,19 @@ package fr.groupe.pcube;
 
 import java.util.UUID;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+
+@MappedSuperclass
 public abstract class Personne {
+    @Id
     private UUID id;
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private String email;
+    @Column(nullable = false)
     private Address address;
 
     protected Personne(){

@@ -3,6 +3,11 @@ package fr.groupe.pcube;
 import java.util.HashMap;
 import java.util.Map;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "Fournisseur")
 public class Fournisseur extends Personne {
     private Map<String, Vin> vins;
 
@@ -10,8 +15,8 @@ public class Fournisseur extends Personne {
         super();
     }
 
-    public Fournisseur(int id, String name, String email) {
-        super(id, name, email);
+    public Fournisseur(String name, String email) {
+        super(name, email);
         this.vins = new HashMap<>();
     }
 
