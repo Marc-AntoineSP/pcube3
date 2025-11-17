@@ -20,7 +20,6 @@
 
         <!-- Entités -->
         <mapping class="fr.groupe.pcube.Vin"/>
-        <mapping class="fr.groupe.pcube.TestEntity"/>
 
 
     </session-factory>
