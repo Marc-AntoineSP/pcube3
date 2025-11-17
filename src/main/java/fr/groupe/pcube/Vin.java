@@ -36,7 +36,7 @@ public class Vin {
 
     public Vin(){
         //Vide pour Hibernate.
-    };
+    }
 
     public int getSeuil(){
         return this.seuil;
