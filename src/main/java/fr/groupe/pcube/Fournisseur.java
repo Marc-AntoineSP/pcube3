@@ -4,7 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Fournisseur extends Personne {
-    private final Map<String, Vin> vins;
+    private Map<String, Vin> vins;
+
+    public Fournisseur(){
+        super();
+    }
 
     public Fournisseur(int id, String name, String email) {
         super(id, name, email);
@@ -45,13 +49,6 @@ public class Fournisseur extends Personne {
         } else if (!vins.equals(other.vins))
             return false;
         return true;
-    }
-
-    public Fournisseur(int id, String name, String email, Address address,
-            Vin vin) {
-        super(id, name, email, address);
-        this.vins = new HashMap<>();
-        this.vins.put(vin.getName(), vin);
     }
 
     public Vin getVin(String vin) throws IllegalArgumentException {

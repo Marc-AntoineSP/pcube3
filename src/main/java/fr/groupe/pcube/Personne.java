@@ -1,25 +1,28 @@
 package fr.groupe.pcube;
 
+import java.util.UUID;
+
 public abstract class Personne {
-    private final int id;
+    private UUID id;
     private String name;
     private String email;
     private Address address;
 
-    protected Personne(int id, String name, String email) {
-        this.id = id;
+    protected Personne(){
+        //Hibernate.
+    }
+    protected Personne(String name, String email) {
+        this.id = UUID.randomUUID();
         this.name = name;
         this.email = email;
     }
 
-    protected Personne(int id, String name, String email, Address address) {
-        this.id = id;
-        this.name = name;
-        this.email = email;
+    protected Personne(String name, String email, Address address) {
+        this(name, email);
         this.address = address;
     }
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
@@ -30,8 +33,6 @@ public abstract class Personne {
         result = prime * result + ((email == null) ? 0 : email.hashCode());
         return result;
     }
-
-    
 
     @Override
     public boolean equals(Object obj) {
