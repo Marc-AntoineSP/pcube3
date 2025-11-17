@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hibernate-configuration>
+    <session-factory>
+
+        <!-- Connexion H2 locale -->
+        <property name="hibernate.connection.driver_class">org.h2.Driver</property>
+        <property name="hibernate.connection.url">jdbc:h2:file:./pcube-db</property>
+        <property name="hibernate.connection.username">sa</property>
+        <property name="hibernate.connection.password"></property>
+
+        <!-- Dialecte -->
+        <property name="hibernate.dialect">org.hibernate.dialect.H2Dialect</property>
+
+        <!-- Schéma en dev -->
+        <property name="hibernate.hbm2ddl.auto">update</property>
+
+        <!-- Debug SQL -->
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+
+        <!-- Entités -->
+        <mapping class="fr.groupe.pcube.Vin"/>
+        <mapping class="fr.groupe.pcube.TestEntity"/>
+
+
+    </session-factory>
+</hibernate-configuration>
