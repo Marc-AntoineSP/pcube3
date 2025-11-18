@@ -16,6 +16,15 @@ public class ServiceGestionVente {
         this.serviceGestionOrder = serviceGestionOrder;
     }
 
+    /*VENTE :
+     * Commande client a une ligne minimum
+     * Verif des stocks pour les lignes
+     * Decrementer les stocks
+     * Logger
+     * Alerte si jamais
+     * Clean a la fin
+     * Puis commande DB une fois que tout est clean.
+     */
     public void vente(Order order){
         try{
             for(Ligne l : order.getLignes()){

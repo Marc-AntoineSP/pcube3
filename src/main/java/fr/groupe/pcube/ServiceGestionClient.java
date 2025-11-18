@@ -1,8 +1,5 @@
 package fr.groupe.pcube;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class ServiceGestionClient {
 
     private ClientRepository clientRepository;
