@@ -13,17 +13,17 @@ public class ServiceGestionClient {
     }
 
     public Client addClient(String firstName, String lastName, String email, Address address){
-        Client exists = clientRepository.findByEmail(email);
+        Client exists = this.clientRepository.findByEmail(email);
         if(exists != null){
             return exists;
         }
         Client newClient = new Client(firstName, lastName, email, address);
-        clientRepository.save(newClient);
+        this.clientRepository.save(newClient);
         return newClient;
     }
 
     public Client getClient(String email){
-        Client client = clientRepository.findByEmail(email);
+        Client client = this.clientRepository.findByEmail(email);
         if(client == null){
             throw new IllegalArgumentException("Aucun client avec le mail : "+email);
         }
@@ -31,9 +31,9 @@ public class ServiceGestionClient {
     }
 
     public void deleteClient(String email){
-        Client client = clientRepository.findByEmail(email);
+        Client client = this.clientRepository.findByEmail(email);
         if(client != null){
-            clientRepository.deleteById(client.getId());
+            this.clientRepository.deleteById(client.getId());
         }
     }
 }
