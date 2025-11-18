@@ -61,6 +61,13 @@ public class Commande {
         this.lignes.add(l);
     }
 
+    public void removeLigne(Ligne l){
+        if(!this.lignes.contains(l)){
+            throw new IllegalArgumentException("La ligne n'existe pas");
+        }
+        this.lignes.remove(l);
+    }
+
     public double getTotal() {
         return this.lignes.stream().mapToDouble(Ligne::getPrice).sum();
     }

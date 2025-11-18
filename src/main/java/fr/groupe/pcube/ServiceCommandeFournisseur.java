@@ -4,21 +4,53 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ServiceCommandeFournisseur {
-    private final Map<Fournisseur, Commande> commandesEncours;
+    private Commande currentCommande;
 
     public ServiceCommandeFournisseur() {
-        this.commandesEncours = new HashMap<>();
+        //Oui.
     }
 
-    public void addCommande(Commande commande) {
-        if (!this.commandesEncours.containsKey(commande.getFournisseur())) {
-            this.commandesEncours.put(commande.getFournisseur(), commande);
-        }
+    public boolean hasCommande(){
+        return currentCommande != null;
     }
 
-    public void deleteCommande(Commande commande){
-        if(this.commandesEncours.containsKey(commande.getFournisseur())) {
-            this.commandesEncours.remove(commande.getFournisseur(), commande);
+    public Commande getCommande(){
+        if(!this.hasCommande()){
+            throw new IllegalStateException("Aucune commande.");
         }
+        return this.currentCommande;
+    }
+
+    //ON PART DU PRINCIPE QU ON CONNAIT LE FOURNISSEUR AVANT DE COMMENCER LA COMMANDE.
+    public void addCommande(Fournisseur fournisseur) {
+        if(hasCommande()){
+            throw new IllegalStateException("Commande déjà en cours");
+        }
+        this.currentCommande = new Commande(fournisseur);
+    }
+
+    public void addLigne(Ligne ligne){
+        if(!hasCommande()){
+            throw new IllegalStateException("Aucune commande en cours");
+        }
+        this.currentCommande.addLignes(ligne);
+    }
+
+    public void removeLigne(Ligne ligne){
+        if(!this.hasCommande()){
+            throw new IllegalStateException("Aucune commande en cours");
+        }
+        this.currentCommande.removeLigne(ligne);
+    }
+
+    public void cancelCommande(){
+        if(!this.hasCommande()){
+            throw new IllegalStateException("Rien à cancel");
+        }
+        this.currentCommande = null;
+    }
+
+    public void deleteApresReception(){
+        this.currentCommande = null;
     }
 }
