@@ -21,12 +21,15 @@ public class Vin {
     private int price;
     @Column(nullable = false)
     private int seuil;
+    @Column(nullable = false)
+    private int stock = 0;
 
     public Vin(String name, String type, int price){
         this.id = UUID.randomUUID();
         this.name = name;
         this.type = type;
         this.price = price;
+        this.stock = 0;
     }
 
     public Vin(String name, String type, int price, int seuil) {
@@ -34,7 +37,7 @@ public class Vin {
         this.seuil = seuil;
     }
 
-    public Vin(){
+    protected Vin(){
         //Vide pour Hibernate.
     }
 
@@ -46,6 +49,15 @@ public class Vin {
     }
     public UUID getId() {
         return id;
+    }
+    public int getStock(){
+        return this.stock;
+    }
+    public void setStock(int stock){
+        if(stock < 0){
+            throw new IllegalArgumentException("stock > 0");
+        }
+        this.stock = stock;
     }
 
     public String getName() {
