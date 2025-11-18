@@ -4,18 +4,36 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ServiceGestionClient {
-    private Map<String, Client> clients; //Gestion mémoire, Map pour retrieve avec mail.
 
-    public ServiceGestionClient(){
-        this.clients = new HashMap<>();
+    private ClientRepository clientRepository;
+
+
+    public ServiceGestionClient(ClientRepository clientRepository) {
+        this.clientRepository = clientRepository;
     }
 
-    public void addClient(Client client){
-        if(this.clients.containsKey(client.getEmail())) throw new IllegalArgumentException("Le client existe déjà !");
-        this.clients.put(client.getEmail(), client);
+    public Client addClient(String firstName, String lastName, String email, Address address){
+        Client exists = clientRepository.findByEmail(email);
+        if(exists != null){
+            return exists;
+        }
+        Client newClient = new Client(firstName, lastName, email, address);
+        clientRepository.save(newClient);
+        return newClient;
     }
 
     public Client getClient(String email){
-        return this.clients.getOrDefault(email, null);
+        Client client = clientRepository.findByEmail(email);
+        if(client == null){
+            throw new IllegalArgumentException("Aucun client avec le mail : "+email);
+        }
+        return client;
+    }
+
+    public void deleteClient(String email){
+        Client client = clientRepository.findByEmail(email);
+        if(client != null){
+            clientRepository.deleteById(client.getId());
+        }
     }
 }
