@@ -13,7 +13,7 @@ public class HibernateUtil {
         try {
             return new Configuration().configure().buildSessionFactory();
         } catch(Exception e){
-            throw new ExceptionInInitializerError("Non");
+            throw new ExceptionInInitializerError(e);
         }
     }
 

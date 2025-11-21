@@ -27,6 +27,9 @@ public class Administrateur extends Personne{
         this.role = Role.ADMINISTRATEUR;
     }
 
+    public Administrateur(){
+        //Hibernate :3
+    }
     public String getPassword(){
         return this.password;
     }

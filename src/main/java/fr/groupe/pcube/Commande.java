@@ -22,7 +22,6 @@ public class Commande {
     @Id
     @Column(name = "id", columnDefinition = "BINARY(16)")
     private UUID id;
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private LocalDate date;
     @ManyToOne(optional = false)

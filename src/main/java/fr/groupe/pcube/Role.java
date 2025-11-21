@@ -1,6 +1,6 @@
 package fr.groupe.pcube;
 
 public enum Role {
-    VISITEUR,
+    CLIENT,
     ADMINISTRATEUR,
 }

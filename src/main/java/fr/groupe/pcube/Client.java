@@ -7,6 +7,9 @@ import jakarta.persistence.Table;
 @Table(name = "client")
 public class Client extends Personne {
 
+    protected Client(){
+        //Hibernate.
+    }
     public Client(String firstName, String lastName, String email, Address address) {
         super(firstName, lastName, email, address);
     }

@@ -19,7 +19,6 @@ public class Log {
     @Column(name = "id", columnDefinition = "BINARY(16)")
     private UUID id;
     @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDate date;
     @Column(nullable = false)
     private String message;

@@ -101,4 +101,11 @@ public class Vin {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "Vin [id=" + id + ", name=" + name + ", type=" + type + ", price=" + price + ", seuil=" + seuil
+                + ", stock=" + stock + "]";
+    }
+    
+
 }

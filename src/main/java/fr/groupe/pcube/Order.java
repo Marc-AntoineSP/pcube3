@@ -17,12 +17,11 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 public class Order {
     @Id
     @Column(name = "id", columnDefinition = "BINARY(16)")
     private UUID id;
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     private LocalDate date;
     @ManyToOne

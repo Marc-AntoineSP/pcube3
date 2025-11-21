@@ -18,6 +18,10 @@ public class Address {
         this.pays = pays;
     }
 
+    public Address(){
+        //Hibernate :D
+    }
+
     public int getCodePostal() {
         return codePostal;
     }
